@@ -582,8 +582,8 @@ function TeamManagement() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="admin">Admin</SelectItem>
-                    <SelectItem value="owner">Owner</SelectItem>
+                    <SelectItem value="admin">{t("team.roleAdmin")}</SelectItem>
+                    <SelectItem value="owner">{t("team.roleOwner")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

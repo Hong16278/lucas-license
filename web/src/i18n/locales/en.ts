@@ -11,6 +11,11 @@ const en = {
   "common.noData": "No data",
   "common.confirm": "Confirm",
   "common.optional": "optional",
+  "common.admin": "Admin",
+  "common.close": "Close",
+  "common.done": "Done",
+  "common.rows": "Rows",
+  "common.pagination": "{from}-{to} of {total}",
 
   // Accept-invite landing page
   "acceptInvite.processing": "Accepting your invitation…",
@@ -124,6 +129,13 @@ const en = {
   // Licenses
   "licenses.title": "Licenses",
   "licenses.subtitle": "Manage software licenses.",
+  "licenses.total": "{count} licenses in total",
+  "licenses.createProduct": "Create product",
+  "licenses.selectPlan": "Select a plan",
+  "licenses.currentPlan": "(current)",
+  "licenses.offlineNoticeTitle": "Offline authorization behavior",
+  "licenses.offlineNoticeDesc":
+    "Suspend and revoke take effect immediately for new activations and server verification, but do not remotely erase a signed token already stored on an offline device. A term license can continue until its local expiry; a perpetual offline license can continue indefinitely.",
   "licenses.issue": "Issue License",
   "licenses.batchIssue": "Generate Cards",
   "licenses.batchIssueDesc":
@@ -143,10 +155,10 @@ const en = {
   "licenses.activations": "Activations",
   "licenses.revoke": "Revoke",
   "licenses.revokeConfirm":
-    "This will permanently revoke the license. The customer will lose access immediately. This cannot be undone.",
+    "This permanently blocks new activation and server verification and cannot be undone. Devices that already hold a valid offline token do not stop immediately: term licenses can run until local expiry, and perpetual offline licenses can continue indefinitely.",
   "licenses.suspend": "Suspend",
   "licenses.suspendConfirm":
-    "This will suspend the license. The customer will not be able to activate or use the software until reinstated.",
+    "This temporarily blocks new activation and server verification until reinstated. Devices that already hold a valid offline token do not stop immediately and can continue until that token expires.",
   "licenses.reinstate": "Reinstate",
   "licenses.refundConfirm":
     "This will cancel the subscription at the payment provider and revoke the license. The customer will lose access immediately.",
@@ -178,16 +190,16 @@ const en = {
   "licenses.resetCounterTitle": "Reset usage for {feature}?",
   "licenses.resetCounterDesc":
     "The counter for the current period drops to zero. The customer can immediately consume the full quota again. This action is logged in the audit trail.",
-  "licenses.deactivate": "Deactivate",
+  "licenses.deactivate": "Release device binding",
   "licenses.invite": "Invite member",
   "licenses.inviteTitle": "Invite a team member",
   "licenses.inviteDesc": "We'll email a one-time accept link to this address. The link expires in 7 days.",
   "licenses.sendInvite": "Send invite",
   "licenses.seatInviteSent": "Invitation sent",
   "licenses.seatCapReached": "Seat cap reached. Upgrade the plan or remove an inactive member before inviting more.",
-  "licenses.deactivateTitle": "Deactivate {device}?",
+  "licenses.deactivateTitle": "Release the binding for {device}?",
   "licenses.deactivateDesc":
-    "This device loses access immediately. The customer can re-activate it (consuming an activation slot) from any client that knows the license key.",
+    "This removes the server-side activation record and frees one device slot. It does not remotely delete an offline token already stored on that device. The license key can then activate another device.",
   "licenses.recentEvents": "Recent Events",
   "licenses.noUsageEvents": "No usage events.",
   "licenses.quantity": "Quantity",
@@ -236,6 +248,8 @@ const en = {
   "webhooks.newDesc": "Set up an endpoint to receive event notifications.",
   "webhooks.deleteConfirm": "This will permanently remove the webhook. Events will no longer be delivered.",
   "webhooks.noProductsDesc": "Create a product first before configuring webhooks.",
+  "webhooks.payload": "Payload",
+  "webhooks.responseBody": "Response body",
 
   // Analytics
   "analytics.title": "Analytics",
@@ -296,6 +310,13 @@ const en = {
   "audit.filterEntityId": "Search by entity ID",
   "audit.filterProduct": "Product",
   "audit.allProducts": "All products",
+  "audit.entityLicense": "License",
+  "audit.entityProduct": "Product",
+  "audit.entityPlan": "Plan",
+  "audit.entityUser": "User",
+  "audit.entityApiKey": "API key",
+  "audit.entityAddon": "Addon",
+  "audit.entitySeat": "Seat",
 
   // Customers
   "customers.title": "Customers",
@@ -311,6 +332,9 @@ const en = {
   "customers.activity": "Activity",
   "customers.totalUsage": "Total Usage",
   "customers.activeSeats": "Active Seats",
+  "customers.noLicenses": "No licenses found.",
+  "customers.noSubscriptions": "No subscriptions found.",
+  "customers.noActivity": "No recent activity.",
 
   // Team
   "team.title": "Team",
@@ -318,6 +342,8 @@ const en = {
   "team.invite": "Invite Member",
   "team.email": "Email address",
   "team.role": "Role",
+  "team.roleAdmin": "Admin",
+  "team.roleOwner": "Owner",
   "team.remove": "Remove",
   "team.removeConfirm": "Remove this team member? They will lose admin access.",
   "team.empty": "No team members yet.",
@@ -454,6 +480,8 @@ const en = {
   "portal.noLicensesAccount": "No licenses associated with your account.",
   "portal.roleMember": "Member",
   "portal.roleAdmin": "Admin",
+  "portal.noQuotaFeatures": "No quota-based features.",
+  "portal.quotaUsage": "Quota usage",
   "portal.viewInvoices": "View Invoices",
   "portal.updatePayment": "Update Payment",
   "portal.changePlan": "Change Plan",

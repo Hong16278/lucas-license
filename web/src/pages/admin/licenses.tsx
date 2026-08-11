@@ -90,7 +90,10 @@ export default function LicensesPage() {
     },
   })
   const batchMut = useMutation({
-    mutationFn: ({ format: _format, ...data }: {
+    mutationFn: ({
+      format: _format,
+      ...data
+    }: {
       product_id: string
       plan_id: string
       name: string
@@ -117,7 +120,7 @@ export default function LicensesPage() {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">{t("licenses.title")}</h1>
-          <p className="text-muted-foreground">Manage software licenses.</p>
+          <p className="text-muted-foreground">{t("licenses.subtitle")}</p>
         </div>
         <Card>
           <CardContent className="py-12 text-center">
@@ -126,7 +129,7 @@ export default function LicensesPage() {
             <p className="text-muted-foreground mt-1 mb-4">{t("licenses.noProductsDesc")}</p>
             <Button asChild>
               <Link to="/admin/products">
-                <Plus className="h-4 w-4 mr-2" /> Create Product
+                <Plus className="h-4 w-4 mr-2" /> {t("licenses.createProduct")}
               </Link>
             </Button>
           </CardContent>
@@ -140,9 +143,7 @@ export default function LicensesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">{t("licenses.title")}</h1>
-          <p className="text-muted-foreground">
-            {total} {t("licenses.title").toLowerCase()} total
-          </p>
+          <p className="text-muted-foreground">{t("licenses.total", { count: total })}</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={() => setBatching(true)}>
@@ -234,7 +235,9 @@ export default function LicensesPage() {
                     <DataTableCell>{batch.plan?.name || "-"}</DataTableCell>
                     <DataTableCell>{batch.channel || "-"}</DataTableCell>
                     <DataTableCell>{batch.quantity}</DataTableCell>
-                    <DataTableCell className="text-xs text-muted-foreground">{formatDate(batch.created_at)}</DataTableCell>
+                    <DataTableCell className="text-xs text-muted-foreground">
+                      {formatDate(batch.created_at)}
+                    </DataTableCell>
                     <DataTableCell>
                       <div className="flex gap-1 justify-end">
                         <Button variant="ghost" size="sm" onClick={() => downloadBatch(batch.id, "txt")}>
@@ -386,25 +389,50 @@ function CreateBatchDialog({
           className="space-y-4"
           onSubmit={(e) => {
             e.preventDefault()
-            onSubmit({ product_id: productId, plan_id: planId, name: name.trim(), channel: channel.trim(), quantity, format })
+            onSubmit({
+              product_id: productId,
+              plan_id: planId,
+              name: name.trim(),
+              channel: channel.trim(),
+              quantity,
+              format,
+            })
           }}
         >
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>{t("common.product")}</Label>
-              <Select value={productId} onValueChange={(v) => { setProductId(v); setPlanId("") }}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
+              <Select
+                value={productId}
+                onValueChange={(v) => {
+                  setProductId(v)
+                  setPlanId("")
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
                 <SelectContent>
-                  {products.map((p) => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
+                  {products.map((p) => (
+                    <SelectItem key={p.id} value={p.id}>
+                      {p.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
               <Label>{t("common.plan")}</Label>
               <Select value={planId} onValueChange={setPlanId}>
-                <SelectTrigger><SelectValue placeholder={t("common.plan")} /></SelectTrigger>
+                <SelectTrigger>
+                  <SelectValue placeholder={t("common.plan")} />
+                </SelectTrigger>
                 <SelectContent>
-                  {plans.map((p) => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
+                  {plans.map((p) => (
+                    <SelectItem key={p.id} value={p.id}>
+                      {p.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -418,12 +446,21 @@ function CreateBatchDialog({
             </div>
             <div className="space-y-2">
               <Label>{t("licenses.quantity")}</Label>
-              <Input type="number" min={1} max={5000} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} required />
+              <Input
+                type="number"
+                min={1}
+                max={5000}
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+                required
+              />
             </div>
             <div className="space-y-2">
               <Label>{t("licenses.exportFormat")}</Label>
               <Select value={format} onValueChange={(v) => setFormat(v as "txt" | "csv")}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="txt">TXT</SelectItem>
                   <SelectItem value="csv">CSV</SelectItem>
@@ -432,7 +469,9 @@ function CreateBatchDialog({
             </div>
           </div>
           <div className="flex justify-end gap-2 pt-2">
-            <Button type="button" variant="outline" onClick={onClose}>{t("common.cancel")}</Button>
+            <Button type="button" variant="outline" onClick={onClose}>
+              {t("common.cancel")}
+            </Button>
             <Button type="submit" disabled={loading || !planId || !name.trim()}>
               {loading ? t("common.loading") : t("licenses.batchIssue")}
             </Button>
@@ -541,7 +580,7 @@ function CreateLicenseDialog({
             <Label>{t("common.plan")}</Label>
             <Select value={planId} onValueChange={setPlanId}>
               <SelectTrigger>
-                <SelectValue placeholder="Select a plan" />
+                <SelectValue placeholder={t("licenses.selectPlan")} />
               </SelectTrigger>
               <SelectContent>
                 {plans.map((p) => (
@@ -734,6 +773,11 @@ function LicenseDetail({ id, onClose }: { id: string; onClose: () => void }) {
                     )}
                   </div>
                 )}
+
+                <div className="rounded-md border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+                  <p className="font-medium">{t("licenses.offlineNoticeTitle")}</p>
+                  <p className="mt-1 text-xs leading-5 text-amber-900">{t("licenses.offlineNoticeDesc")}</p>
+                </div>
 
                 {/* Actions */}
                 <div className="flex gap-2 flex-wrap">
@@ -1199,12 +1243,12 @@ function ChangePlanDialog({
             <Label>{t("common.plan")}</Label>
             <Select value={planId} onValueChange={setPlanId}>
               <SelectTrigger>
-                <SelectValue placeholder="Select a plan" />
+                <SelectValue placeholder={t("licenses.selectPlan")} />
               </SelectTrigger>
               <SelectContent>
                 {plans.map((p) => (
                   <SelectItem key={p.id} value={p.id}>
-                    {p.name} {p.id === currentPlanId ? "(current)" : ""}
+                    {p.name} {p.id === currentPlanId ? t("licenses.currentPlan") : ""}
                   </SelectItem>
                 ))}
               </SelectContent>

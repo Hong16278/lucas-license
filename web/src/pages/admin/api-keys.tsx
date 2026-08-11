@@ -452,7 +452,7 @@ function NewKeyDialog({ keyValue, onClose }: { keyValue: string; onClose: () => 
             </Button>
           </div>
           <div className="flex justify-end">
-            <Button onClick={onClose}>Done</Button>
+            <Button onClick={onClose}>{t("common.done")}</Button>
           </div>
         </div>
       </DialogContent>

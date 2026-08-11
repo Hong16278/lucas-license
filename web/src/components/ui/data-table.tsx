@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-r
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useI18n } from "@/i18n"
 import { cn } from "@/lib/utils"
 
 // ─── Enhanced Table Components ───
@@ -86,6 +87,7 @@ function DataTablePagination({
   onPageSizeChange,
   pageSizeOptions = [10, 20, 30, 50],
 }: PaginationProps) {
+  const { t } = useI18n()
   const from = total === 0 ? 0 : page * pageSize + 1
   const to = Math.min((page + 1) * pageSize, total)
 
@@ -106,14 +108,12 @@ function DataTablePagination({
   return (
     <div className="flex items-center justify-between gap-4 px-1 py-3">
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
-        <span>
-          {from}-{to} of {total.toLocaleString()}
-        </span>
+        <span>{t("common.pagination", { from, to, total: total.toLocaleString() })}</span>
         {onPageSizeChange && (
           <>
             <span className="text-border">|</span>
             <div className="flex items-center gap-1.5">
-              <span>Rows</span>
+              <span>{t("common.rows")}</span>
               <Select value={String(pageSize)} onValueChange={(v) => onPageSizeChange(Number(v))}>
                 <SelectTrigger className="h-7 w-16 text-xs">
                   <SelectValue />
