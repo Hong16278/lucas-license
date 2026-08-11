@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="lucas-favicon" x1="20" y1="16" x2="108" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#lucas-favicon)"/>
+  <path d="M39 31v55c0 7.18 5.82 13 13 13h39" stroke="white" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="88" cy="49" r="12" fill="none" stroke="white" stroke-width="8"/>
+  <path d="M88 61v17m0 0h13m-13 0v10" stroke="white" stroke-width="8" stroke-linecap="round"/>
+</svg>
